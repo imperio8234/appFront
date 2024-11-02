@@ -55,6 +55,7 @@ const RickProvider = ({ children }) => {
         
     }
 
+    
   async  function deleteItemDB(id, idUser, ventana, favoritMode) {
        
         if (ventana == "character" || favoritMode == "char") {
