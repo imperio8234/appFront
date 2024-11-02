@@ -2,3 +2,4 @@
 2. se clona el repositorio 
 3. una ves clonado se instalan las dependencias con npm install 
 4. se abre en el navegador en el puerto localhost:5173
+5. en utils cambiamos el backApi por la direccion http://localhost:4000/api
