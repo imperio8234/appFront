@@ -1,11 +1,12 @@
 import { Favorite } from "@mui/icons-material"
 import { Accordion, AccordionDetails, AccordionSummary, IconButton } from "@mui/material"
 import { useRick } from "../../provider/useRick"
+import { createEpisode } from "../../../services/favoritoEpisodio"
 
 export const CardEpisode = ({data, user, setModalUser, setFavoritos, favoritos, isFavorito, infoModal, setFavoritMode, getEpiCharLoca}) => {
      
     const {deleteItemDB} = useRick()
-    const addfavorites = () => {
+    const addfavorites = async () => {
         // se verifica que hay un usuario para guardar el favorito
         if (!user) {
             setModalUser(true)
@@ -24,6 +25,8 @@ export const CardEpisode = ({data, user, setModalUser, setFavoritos, favoritos, 
         }
         data.idUser= user._id
         setFavoritos(favoritos?[...favoritos , data]:data)
+        // guardar en la base de datos
+        const response = await createEpisode(data);
     }
     return (
         <div className="w-[300px] h-66 bg-white rounded border shadow p-2 hover:-translate-y-1 hover:scale-110  duration-300">

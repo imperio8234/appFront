@@ -14,29 +14,9 @@ const RickProvider = ({ children }) => {
     const [modalUser, setModalUser] = useState(false);
     const [favoritMode, setFavoritMode] = useState(""); // me permite abrir la info de las card de los favoritos agregados
     const [deleteItem, setDeleteItem] = useState({});
-   async function saveFavorite() {
-        if (!user) {
-           return;
-            
-        }
-       try {
-        console.log(favoritos)
-        // guardar en la base de datos 
-       console.log("guardando en la base de datos")
-      const response=  await createEpisode(favoritosEpisode.at(-1));
-      const response2=  await createLocacion(favoritosLocation.at(-1));
-       const resonse3 =  await createPersonaje(favoritos.at(-1));
-       console.log(response)
-       console.log(response2)
-       console.log(resonse3)
-        
-       } catch (err) {
-          console.log(err)
-       }
-        
-    }
-    // inicio de la aplicacion 
+  
     async function init(id) {
+      
       try {
           console.log("Iniciando la función init...");
           
@@ -82,16 +62,9 @@ const RickProvider = ({ children }) => {
         init(result.data._id)
     } else {
         setUser(result.data[0]);
+        init(result.data[0]._id)
     }   
     }
-
-    useEffect(() => {
-      saveFavorite();
-    }, [favoritos, favoritosEpisode, favoritosLocation])
-
-    useEffect(() =>{
-        init();
-    }, [user])
 
     const contextData = {
         favoritos,

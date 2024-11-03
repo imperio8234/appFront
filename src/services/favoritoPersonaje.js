@@ -21,6 +21,7 @@ const eliminarPersonaje = async (id, iduser) => {
 }
 
 export const createPersonaje = async (data) => {
+  console.log("crear personaje")
   try {
      const response = await backApi.post(`/personaje`,data)
      console.log(response)

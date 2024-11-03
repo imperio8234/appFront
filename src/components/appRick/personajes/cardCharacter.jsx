@@ -1,10 +1,11 @@
 import { Favorite } from "@mui/icons-material"
 import { IconButton } from "@mui/material"
 import { useRick } from "../../provider/useRick"
+import { createPersonaje } from "../../../services/favoritoPersonaje"
 
 export const CardCharacter = ({user, getEpiCharLoca, setModalUser ,data, setFavoritos, favoritos, isFavorito, infoModal, setFavoritMode}) =>{
     const {deleteItemDB} = useRick()
-    const addfavorites = () => {
+    const addfavorites = async () => {
         // se verifica que hay un usuario para guardar el favorito
         if (!user) {
             setModalUser(true)
@@ -25,6 +26,9 @@ export const CardCharacter = ({user, getEpiCharLoca, setModalUser ,data, setFavo
          // se agrega el id del usuario actual
         data.idUser= user._id;
         setFavoritos(favoritos?[...favoritos , data]:data)
+        // guardar en la base de datos
+      const response =  await createPersonaje(data);
+      
     }
     return (
         <div className="w-52 h-66 bg-white rounded border shadow p-2 hover:-translate-y-1 hover:scale-110  duration-300">
