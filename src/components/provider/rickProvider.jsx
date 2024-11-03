@@ -3,7 +3,6 @@ import { createUser } from "../../services/user.service";
 import { createEpisode, eliminarEpisodio, optenerEpisodios } from "../../services/favoritoEpisodio";
 import { createPersonaje, eliminarPersonaje, optenerPersonajes } from "../../services/favoritoPersonaje";
 import { createLocacion, eliminarLocacion, optenerLocaciones } from "../../services/favoritoLocacion";
-import { Sync } from "@mui/icons-material";
 
 const UserContext = createContext(null);
 
@@ -20,42 +19,48 @@ const RickProvider = ({ children }) => {
            return;
             
         }
-
+       try {
+        console.log(favoritos)
         // guardar en la base de datos 
-
-        await createEpisode(favoritosEpisode.at(-1));
-        await createLocacion(favoritosLocation.at(-1));
-        await createPersonaje(favoritos.at(-1));
-
-      
-       /* if (favoritosEpisode.length < responseEpisode.data.length) {
-            console.log("el arreglo tiene menos objetos");
-            
-        } else if (favoritosLocation.length < responseLocaciones.data.length){
-
-        }else if() {
-
-        }*/
-        //console.log()
-        //console.log(favoritosEpisode)
-       //const episode = await createEpisode()
+       console.log("guardando en la base de datos")
+      const response=  await createEpisode(favoritosEpisode.at(-1));
+      const response2=  await createLocacion(favoritosLocation.at(-1));
+       const resonse3 =  await createPersonaje(favoritos.at(-1));
+       console.log(response)
+       console.log(response2)
+       console.log(resonse3)
+        
+       } catch (err) {
+          console.log(err)
+       }
         
     }
     // inicio de la aplicacion 
-   async function init() {
-        //
-        const responseEpisode = await optenerEpisodios(user._id)
-        const responsePersonaje = await optenerPersonajes(user._id)
-        const responseLocaciones = await optenerLocaciones(user._id)
-        setFavoritos(responsePersonaje.data)
-        setFavoritosEpisode(responseEpisode.data)
-        setFavoritosLocation(responseLocaciones.data)
+    async function init(id) {
+      try {
+          console.log("Iniciando la función init...");
+          
+          const responseEpisode = await optenerEpisodios(id);
+          console.log("Episodios:", responseEpisode);
+          
+          const responsePersonaje = await optenerPersonajes(id);
+          console.log("Personajes:", responsePersonaje);
+          
+          const responseLocaciones = await optenerLocaciones(id);
+          console.log("Locaciones:", responseLocaciones);
+          
+          setFavoritos(responsePersonaje.data);
+          setFavoritosEpisode(responseEpisode.data);
+          setFavoritosLocation(responseLocaciones.data);
+          
+          console.log("Inicialización completa.");
+      } catch (error) {
+          console.error("Error al inicializar:", error);
+      }
+  }
+  
 
-        //console.log("se inicio ", responsePersonaje.data)
-        
-    }
 
-    
   async  function deleteItemDB(id, idUser, ventana, favoritMode) {
        
         if (ventana == "character" || favoritMode == "char") {
@@ -74,6 +79,7 @@ const RickProvider = ({ children }) => {
     const result = await createUser(user);
     if(result.success){
         setUser(result.data);
+        init(result.data._id)
     } else {
         setUser(result.data[0]);
     }   
