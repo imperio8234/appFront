@@ -1,8 +1,5 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1.requisito de node es la version 21.7.3 
+2. se clona el repositorio 
+3. una ves clonado se instalan las dependencias con npm install 
+4. se abre en el navegador en el puerto localhost:5173
+5. en utils cambiamos el backApi por la direccion http://localhost:4000/api
